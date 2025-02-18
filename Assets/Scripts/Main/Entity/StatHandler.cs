@@ -10,4 +10,11 @@ public class StatHandler : MonoBehaviour
         get => speed;
         set => speed = Mathf.Clamp(value, 0, 20);
     }
+
+    [Range(1f, 20f)][SerializeField] private float jumpForce = 3;
+    public float JumpForce
+    {
+        get => jumpForce;
+        set => jumpForce = Mathf.Clamp(value, 0, 20);
+    }
 }

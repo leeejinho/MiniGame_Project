@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : BaseController
 {
-    private Vector3 camOffset;
+    private float camOffsetX;
 
     private void Start()
     {
-        camOffset =  Camera.main.transform.position - transform.localPosition;
+        // 카메라 위치 
+        camOffsetX =  Camera.main.transform.position.x - transform.localPosition.x;
     }
 
     protected override void Update()
@@ -18,9 +20,19 @@ public class PlayerController : BaseController
         FollowCamera();
     }
 
+    protected override void FixedUpdate()
+    {
+        //base.FixedUpdate();
+        Vector2 moveDir = rigid.velocity;
+        moveDir.x = statHandler.Speed;
+
+        rigid.velocity = moveDir;
+    }
+
     void FollowCamera()
     {
-        Vector3 camPos = transform.position + camOffset;
+        Vector3 camPos = Camera.main.transform.position;
+        camPos.x = transform.localPosition.x + camOffsetX;
 
         Camera.main.transform.position = camPos;
     }
@@ -32,5 +44,11 @@ public class PlayerController : BaseController
 
         if (movementDirection.x != 0)
             lookDirection = movementDirection;
+    }
+
+    void OnJump(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+            rigid.AddForce(Vector2.up * statHandler.JumpForce, ForceMode2D.Impulse);
     }
 }

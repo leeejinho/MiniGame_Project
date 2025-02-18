@@ -11,7 +11,7 @@ public class GameNPCController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.tag.Equals(targetTag))
+        if (!collision.CompareTag(targetTag))
             return;
 
         // 상호작용 메세지 on
@@ -20,7 +20,7 @@ public class GameNPCController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.tag.Equals(targetTag))
+        if (!collision.CompareTag(targetTag))
             return;
 
         // 상호작용 메세지 off
