@@ -8,10 +8,12 @@ public class MiniGameManager : MonoBehaviour
 
     private GameManager gameManager;
     private ObjectManager objectManager;
+    private UIManager uiManager;
 
     public MiniGamePlayerController player;
+    public ResourceController playerResource;
 
-    public bool gameOver = false;
+    public bool gameStart = false;
 
     private void Awake()
     {
@@ -19,13 +21,15 @@ public class MiniGameManager : MonoBehaviour
 
         gameManager = GameManager.Instance;
         objectManager = GetComponentInChildren<ObjectManager>();
+        uiManager = FindAnyObjectByType<UIManager>();
 
         player = FindAnyObjectByType<MiniGamePlayerController>();
+        playerResource = player.GetComponent<ResourceController>();
     }
 
     private void Start()
     {
-        GameStart();
+        
     }
 
     private void Update()
@@ -39,13 +43,21 @@ public class MiniGameManager : MonoBehaviour
 
     public void GameStart()
     {
+        gameStart = true;
+
+        uiManager.SetPlayGame();
         objectManager.StartSpawn();
     }
 
     public void GameOver()
     {
-        gameOver = true;
+        gameStart = false;
+
+        uiManager.SetGameOver();
         player.StopMove();
         objectManager.StopSpawn();
+
+        // º¸»ó È¹µæ
+        gameManager.playerResource.GetGold(playerResource.gold);
     }
 }

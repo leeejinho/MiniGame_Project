@@ -3,30 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AnimType { Elf, Knight, Lizard }
+
 public class ResourceController : MonoBehaviour
 {
-    [SerializeField] private float healthChangeDelay = 0.5f;
-
     private BaseController baseController;
     private StatHandler statHandler;
     private AnimationHandler animationHandler;
 
-    public int gold { get; private set; }
+    public RuntimeAnimatorController[] mainAnimController;
+    public RuntimeAnimatorController[] runAnimController;
+    public AnimType animType { get; private set; }
 
-    private float timeSinceLastChange = float.MaxValue;
+
+    public int gold { get; private set; }
 
     public float CurrentHealth { get; private set; }
     public float MaxHealth => statHandler.Health;
 
     public AudioClip damageClip;
 
-    private Action<float, float> OnChangeHealth;
-
     private void Awake()
     {
         baseController = GetComponent<BaseController>();
         statHandler = GetComponent<StatHandler>();
         animationHandler = GetComponent<AnimationHandler>();
+
+        animType = AnimType.Elf;
     }
 
     private void Start()
@@ -37,27 +40,17 @@ public class ResourceController : MonoBehaviour
 
     private void Update()
     {
-        if (timeSinceLastChange < healthChangeDelay)
-        {
-            timeSinceLastChange += Time.deltaTime;
-            if (timeSinceLastChange >= healthChangeDelay)
-            {
-                animationHandler.InvincibilityEnd();
-            }
-        }
+       
     }
 
     public bool ChangeHealth(float change)
     {
-        if (change == 0 || timeSinceLastChange < healthChangeDelay)
+        if (change == 0)
             return false;
 
-        timeSinceLastChange = 0;
         CurrentHealth += change;
         CurrentHealth = CurrentHealth > MaxHealth ? MaxHealth : CurrentHealth;
         CurrentHealth = CurrentHealth < 0 ? 0 : CurrentHealth;
-
-        OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
 
         if (change < 0)
         {
@@ -75,6 +68,11 @@ public class ResourceController : MonoBehaviour
         return true;
     }
 
+    public void ChangeAnim(AnimType animType)
+    {
+        this.animType = animType;
+    }
+
     public void GetGold(int gold)
     {
         this.gold += gold;
@@ -85,13 +83,4 @@ public class ResourceController : MonoBehaviour
         baseController.Death();
     }
 
-    public void AddHealthChangeEvent(Action<float, float> action)
-    {
-        OnChangeHealth += action;
-    }
-
-    public void RemoveHealthChangeEvent(Action<float, float> action)
-    {
-        OnChangeHealth -= action;
-    }
 }

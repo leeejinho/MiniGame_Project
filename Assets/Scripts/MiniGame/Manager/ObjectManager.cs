@@ -14,6 +14,7 @@ public class ObjectManager : MonoBehaviour
 
     private float offsetX = 10f;
     private float offsetY = -4f;
+    private float spawnLimit = 200f;
 
     private List<Action> listPattern = new List<Action>();
 
@@ -39,6 +40,9 @@ public class ObjectManager : MonoBehaviour
 
         while (true)
         {
+            if (MiniGameManager.Instance.player.transform.position.x >= spawnLimit)
+                break;
+
             listPattern[UnityEngine.Random.Range(0, listPattern.Count)]?.Invoke();
             yield return new WaitForSeconds(spawnDuration);
         }

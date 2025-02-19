@@ -21,7 +21,7 @@ public class AnimationHandler : MonoBehaviour
 
     public void Damage()
     {
-        animator.SetBool(IsDamage, true);
+        animator.SetTrigger(IsDamage);
     }
 
     public void InvincibilityEnd()

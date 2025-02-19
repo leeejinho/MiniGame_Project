@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class ActiveUI : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class ActiveUI : MonoBehaviour
 
     private void Awake()
     {
+        target = GameManager.Instance.player.gameObject;
         rect = GetComponent<RectTransform>();
     }
 
@@ -27,7 +30,6 @@ public class ActiveUI : MonoBehaviour
 
     void OnActiveGame()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        GameManager.Instance.LoadMiniGame();
     }
 }

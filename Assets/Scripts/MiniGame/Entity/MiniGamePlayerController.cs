@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class MiniGamePlayerController : BaseController
@@ -10,11 +11,15 @@ public class MiniGamePlayerController : BaseController
     protected override void Awake()
     {
         base.Awake();
+
+        GameManager gameManager = GameManager.Instance;
+        animController.runtimeAnimatorController = gameManager.playerResource.runAnimController[(int)gameManager.playerResource.animType];
     }
     private void Start()
     {
         // 카메라 위치 
         camOffsetX = Camera.main.transform.position.x - transform.localPosition.x;
+        FollowCamera();
     }
 
     protected override void Update()
@@ -24,7 +29,7 @@ public class MiniGamePlayerController : BaseController
 
     protected override void FixedUpdate()
     {
-        if (MiniGameManager.Instance.gameOver) { return; }
+        if (!MiniGameManager.Instance.gameStart) { return; }
 
         Vector2 moveDir = rigid.velocity;
         moveDir.x = statHandler.Speed;
@@ -54,6 +59,9 @@ public class MiniGamePlayerController : BaseController
 
     void OnJump(InputValue inputValue)
     {
+        if (EventSystem.current.IsPointerOverGameObject() && !MiniGameManager.Instance.gameStart)
+            return;
+
         if (inputValue.isPressed && rigid.velocity.y == 0)
             rigid.AddForce(Vector2.up * statHandler.JumpForce, ForceMode2D.Impulse);
     }

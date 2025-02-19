@@ -9,6 +9,7 @@ public abstract class BaseController : MonoBehaviour
     protected Rigidbody2D rigid;
     protected AnimationHandler animationHandler;
     protected StatHandler statHandler;
+    protected Animator animController;
 
     protected Vector2 movementDirection = Vector2.zero;
     public Vector2 MovementDirection { get { return movementDirection; } }
@@ -21,6 +22,7 @@ public abstract class BaseController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animationHandler = GetComponent<AnimationHandler>();
         statHandler = GetComponent<StatHandler>();
+        animController = GetComponentInChildren<Animator>();
     }
 
     protected virtual void Update()

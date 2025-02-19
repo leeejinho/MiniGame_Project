@@ -24,6 +24,7 @@ public class GameNPCController : MonoBehaviour
             return;
 
         // 상호작용 메세지 off
-        activeUI.SetActive(false);
+        if (activeUI != null)
+            activeUI.SetActive(false);
     }
 }

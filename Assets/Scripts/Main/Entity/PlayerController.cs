@@ -10,6 +10,13 @@ public class PlayerController : BaseController
     {
         base.Awake();
 
+        if (GameManager.Instance != null)
+        {
+            GameManager gameManager = GameManager.Instance;
+
+            gameManager.player.animController.runtimeAnimatorController = gameManager.playerResource.mainAnimController[(int)gameManager.playerResource.animType];
+        }
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -21,14 +28,14 @@ public class PlayerController : BaseController
 
     void FollowCamera()
     {
-        Camera.main.transform.position = transform.position;
+        Vector3 campos = transform.position;
+        campos.z = Camera.main.transform.position.z;
+
+        Camera.main.transform.position = campos;
     }
 
     void OnMove(InputValue inputValue)
     {
-        if (MiniGameManager.Instance.gameOver)
-            return;
-
         movementDirection = inputValue.Get<Vector2>();
         movementDirection = movementDirection.normalized;
 
