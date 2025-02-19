@@ -48,4 +48,23 @@ public abstract class BaseController : MonoBehaviour
 
         characterRenderer.flipX = isLeft;
     }
+
+    public virtual void Death()
+    {
+        rigid.velocity = Vector3.zero;
+
+        foreach (SpriteRenderer renderer in transform.GetComponentsInChildren<SpriteRenderer>())
+        {
+            Color color = renderer.color;
+            color.a = 0.3f;
+            renderer.color = color;
+        }
+
+        foreach (Behaviour component in transform.GetComponentsInChildren<Behaviour>())
+        {
+            component.enabled = false;
+        }
+
+        Destroy(gameObject, 2f);
+    }
 }

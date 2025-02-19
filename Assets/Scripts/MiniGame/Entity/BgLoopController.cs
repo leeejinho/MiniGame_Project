@@ -8,6 +8,7 @@ public class BgLoopController : MonoBehaviour
     [SerializeField] private int bgWidth = 18;
 
     private const string bgTag = "Background";
+    private const string gameObjTag = "GameObject";
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,6 +18,11 @@ public class BgLoopController : MonoBehaviour
             bgPos.x += bgCount * bgWidth;
 
             collision.transform.position = bgPos;
+        }
+
+        if (collision.CompareTag(gameObjTag))
+        {
+            Destroy(collision.gameObject);
         }
     }
 }

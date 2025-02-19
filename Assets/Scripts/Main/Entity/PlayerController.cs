@@ -6,12 +6,11 @@ using UnityEngine.UIElements;
 
 public class PlayerController : BaseController
 {
-    private float camOffsetX;
-
-    private void Start()
+    protected override void Awake()
     {
-        // 카메라 위치 
-        camOffsetX =  Camera.main.transform.position.x - transform.localPosition.x;
+        base.Awake();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     protected override void Update()
@@ -20,25 +19,16 @@ public class PlayerController : BaseController
         FollowCamera();
     }
 
-    protected override void FixedUpdate()
-    {
-        //base.FixedUpdate();
-        Vector2 moveDir = rigid.velocity;
-        moveDir.x = statHandler.Speed;
-
-        rigid.velocity = moveDir;
-    }
-
     void FollowCamera()
     {
-        Vector3 camPos = Camera.main.transform.position;
-        camPos.x = transform.localPosition.x + camOffsetX;
-
-        Camera.main.transform.position = camPos;
+        Camera.main.transform.position = transform.position;
     }
 
     void OnMove(InputValue inputValue)
     {
+        if (MiniGameManager.Instance.gameOver)
+            return;
+
         movementDirection = inputValue.Get<Vector2>();
         movementDirection = movementDirection.normalized;
 
@@ -46,9 +36,4 @@ public class PlayerController : BaseController
             lookDirection = movementDirection;
     }
 
-    void OnJump(InputValue inputValue)
-    {
-        if (inputValue.isPressed)
-            rigid.AddForce(Vector2.up * statHandler.JumpForce, ForceMode2D.Impulse);
-    }
 }
