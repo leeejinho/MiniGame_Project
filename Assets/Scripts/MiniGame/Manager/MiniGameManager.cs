@@ -27,20 +27,6 @@ public class MiniGameManager : MonoBehaviour
         playerResource = player.GetComponent<ResourceController>();
     }
 
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        // 임시 종료
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            GameOver();
-        }
-    }
-
     public void GameStart()
     {
         gameStart = true;
