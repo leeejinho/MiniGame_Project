@@ -25,20 +25,21 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            Instance.player.gameObject.SetActive(true);
+
             Destroy(gameObject);
 
-            // 货肺款 Player 昏力
-            PlayerController newPlayer = FindAnyObjectByType<PlayerController>();
+            //// 货肺款 Player 昏力
+            //PlayerController newPlayer = FindAnyObjectByType<PlayerController>();
 
-            if (newPlayer == Instance.player)
-            {
-                newPlayer = FindAnyObjectByType<PlayerController>();
-                Destroy(newPlayer.gameObject);
-            }
-            else
-                Destroy(newPlayer.gameObject);
+            //if (newPlayer == Instance.player)
+            //{
+            //    newPlayer = FindAnyObjectByType<PlayerController>();
+            //    Destroy(newPlayer.gameObject);
+            //}
+            //else
+            //    Destroy(newPlayer.gameObject);
 
-            Instance.player.gameObject.SetActive(true);
         }
 
         Instance.uiManager = FindAnyObjectByType<UIManager>();
