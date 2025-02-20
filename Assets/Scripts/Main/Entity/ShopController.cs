@@ -82,8 +82,7 @@ public class ShopController : MonoBehaviour
             else
             {
                 GameManager.Instance.playerResource.GetGold(-priceKnight);
-                GameManager.Instance.uiManager.ChangePlayerGold();
-
+                
                 unlockKnight = true;
                 PlayerPrefs.SetInt(unlcokKnightKey, Convert.ToInt32(unlockKnight));
 
@@ -112,7 +111,6 @@ public class ShopController : MonoBehaviour
             else
             {
                 GameManager.Instance.playerResource.GetGold(-priceLizard);
-                GameManager.Instance.uiManager.ChangePlayerGold();
 
                 unlockLizard = true;
                 PlayerPrefs.SetInt(unlcokLizardKey, Convert.ToInt32(unlockLizard));
