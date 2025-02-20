@@ -160,11 +160,11 @@
             ]
         },
         {
-            "name": "Interactive",
+            "name": "ActiveButton",
             "id": "3e62df3e-9489-411f-96db-14618b32c384",
             "actions": [
                 {
-                    "name": "ActiveGame",
+                    "name": "Active",
                     "type": "Value",
                     "id": "2e0b368d-9663-4079-9dfa-2614d2aa6495",
                     "expectedControlType": "",
@@ -181,7 +181,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ActiveGame",
+                    "action": "Active",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

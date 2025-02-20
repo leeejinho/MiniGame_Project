@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     HomeUI homeUI;
     GameUI gameUI;
     GameOverUI gameOverUI;
+    ShopController shopController;
 
     private UIState currentState;
 
@@ -16,10 +17,14 @@ public class UIManager : MonoBehaviour
     {
         homeUI = GetComponentInChildren<HomeUI>(true);
         homeUI?.Init(this);
+
         gameUI = GetComponentInChildren<GameUI>(true);
         gameUI?.Init(this);
+
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI?.Init(this);
+
+        shopController = GetComponentInChildren<ShopController>(true);
 
         ChangeState(UIState.Home);
     }
@@ -44,5 +49,10 @@ public class UIManager : MonoBehaviour
     public void ChangePlayerGold()
     {
         gameUI?.UpdateGoldText();
+    }
+
+    public void ShowShop()
+    {
+        shopController.Show();
     }
 }

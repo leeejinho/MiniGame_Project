@@ -10,12 +10,7 @@ public class PlayerController : BaseController
     {
         base.Awake();
 
-        if (GameManager.Instance != null)
-        {
-            GameManager gameManager = GameManager.Instance;
-
-            gameManager.player.animController.runtimeAnimatorController = gameManager.playerResource.mainAnimController[(int)gameManager.playerResource.animType];
-        }
+        ChangeAnim();
 
         DontDestroyOnLoad(gameObject);
     }
@@ -24,6 +19,16 @@ public class PlayerController : BaseController
     {
         base.Update();
         FollowCamera();
+    }
+
+    public void ChangeAnim()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager gameManager = GameManager.Instance;
+
+            gameManager.player.animController.runtimeAnimatorController = gameManager.playerResource.mainAnimController[(int)gameManager.playerResource.animType];
+        }
     }
 
     void FollowCamera()

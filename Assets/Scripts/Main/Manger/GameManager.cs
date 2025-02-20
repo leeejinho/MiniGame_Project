@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private UIManager uiManager;
+    public UIManager uiManager;
 
     public PlayerController player { get; private set; }
     public ResourceController playerResource { get; private set; }
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             Instance.player.gameObject.SetActive(true);
         }
 
-        uiManager = FindAnyObjectByType<UIManager>();
+        Instance.uiManager = FindAnyObjectByType<UIManager>();
     }
 
     private void Start()

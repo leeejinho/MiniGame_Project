@@ -15,7 +15,6 @@ public class ResourceController : MonoBehaviour
     public RuntimeAnimatorController[] runAnimController;
     public AnimType animType { get; private set; }
 
-
     public int gold { get; private set; }
 
     public float CurrentHealth { get; private set; }
@@ -30,11 +29,11 @@ public class ResourceController : MonoBehaviour
         animationHandler = GetComponent<AnimationHandler>();
 
         animType = AnimType.Elf;
+        gold = 0;
     }
 
     private void Start()
     {
-        gold = 0;
         CurrentHealth = statHandler.Health;
     }
 
@@ -68,7 +67,7 @@ public class ResourceController : MonoBehaviour
         return true;
     }
 
-    public void ChangeAnim(AnimType animType)
+    public void ChangeAnimType(AnimType animType)
     {
         this.animType = animType;
     }

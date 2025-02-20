@@ -27,9 +27,4 @@ public class ActiveUI : MonoBehaviour
     {
         gameObject.SetActive(isActive);
     }
-
-    void OnActiveGame()
-    {
-        GameManager.Instance.LoadMiniGame();
-    }
 }
